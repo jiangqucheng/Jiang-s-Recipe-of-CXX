@@ -73,10 +73,13 @@ ifneq ($(MAKECMDGOALS),clean)
 sinclude $(DEPS)
 endif
 
-
-ifneq ($(TARGET),clean)
+ifeq ($(MAKECMDGOALS),clean)
+# use $(TARGET)=clean to identify this script not running in rootfolder makefile.mak
+ifeq ($(TARGET),clean)
 clean_root_folder_additional_cmd=-$(MAKE) -f makefile.mak clean TARGET=clean
 endif
+endif
+
 ########### clean ###################
 clean:
 	$(PRINT)
@@ -84,6 +87,7 @@ clean:
 	-for dir in $(SUBDIRS);	do $(MAKE) -C $$dir clean||exit 1;	done
 	$(RM) $(OBJS) $(TARGETS) $(DEPS)
 	$(clean_root_folder_additional_cmd)
+	-$(root_folder_CLEAN_COMMAND_ADDI)
 	$(PRINT)
 
 
