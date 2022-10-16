@@ -14,10 +14,16 @@ PRINT          ?= @echo
 #################   directory   #################
 
 TOP_DIR        ?= .
-SRC_DIR        ?= ./src
+  # "SRC_DIR" is place to put source code. 
+SRC_DIR        ?= ./src .
+  # "INC_DIR" is place to put common shared header files. 
 INC_DIR        ?= . ./inc $(TOP_DIR)/inc $(TOP_DIR) $(TOP_DIR)/vcd-writer  
+  # "BIN_DIR" is place to put output binary executables. 
 BIN_DIR        ?= $(TOP_DIR)/bin
+  # "LIB_DIR" is place to put library. 
 LIB_DIR        ?= $(TOP_DIR)/lib
+  # "SUBDIRS" is a list of subdirs which located in the current working directory. 
+  # Need manually remove "." in shell find, by "filter-out ."
 SUBDIRS        =  $(filter-out .,$(shell find . -type d))
 
 
@@ -57,18 +63,12 @@ LINK_FLAGS      = $(CXX_FLAGS)
 
 ###################   Files   ###################
 
-MAKE_CONFIGS    = $(wildcard $(TOP_DIR)/*.mak)  $(wildcard ./*.mak)  make.config.mak  make.func.mak  makefile  
+MAKE_CONFIGS = $(wildcard $(TOP_DIR)/*.mak)  $(wildcard ./*.mak)  make.config.mak  make.func.mak  makefile  
 
 # 获取源文件，目标文件和依赖文件名
-SRCS =$(wildcard $(SRC_DIR)/*.cpp) 
-SRCS+=$(wildcard $(SRC_DIR)/*.cu) 
-SRCS+=$(wildcard ./*.cpp) 
-OBJS =$(patsubst $(SRC_DIR)/%.cpp,$(SRC_DIR)/%.o,$(wildcard $(SRC_DIR)/*.cpp) ) 
-OBJS+=$(patsubst $(SRC_DIR)/%.cu,$(SRC_DIR)/%.o,$(wildcard $(SRC_DIR)/*.cu) ) 
-OBJS+=$(patsubst ./%.cpp,./%.o,$(wildcard ./*.cpp) ) 
-DEPS =$(patsubst $(SRC_DIR)/%.cpp,$(SRC_DIR)/%.d,$(wildcard $(SRC_DIR)/*.cpp) ) 
-DEPS+=$(patsubst $(SRC_DIR)/%.cu,$(SRC_DIR)/%.d,$(wildcard $(SRC_DIR)/*.cu) ) 
-DEPS+=$(patsubst ./%.cpp,./%.d,$(wildcard ./*.cpp) ) 
+SRCS = $(wildcard $(patsubst %, %/*.cpp, $(SRC_DIR))  $(patsubst %, %/*.c, $(SRC_DIR))  $(patsubst %, %/*.cu, $(SRC_DIR)) )
+OBJS = $(filter %.o, $(SRCS:.cpp=.o) $(SRCS:.c=.o) $(SRCS:.cu=.o))
+DEPS = $(filter %.d, $(SRCS:.cpp=.d) $(SRCS:.c=.d) $(SRCS:.cu=.d))
 
 
 # 获取执行 make 模块目录的绝对文件路径
