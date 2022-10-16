@@ -1,12 +1,12 @@
 TOP_DIR=.
 sinclude $(TOP_DIR)/make.config.mak
-.PHONY: $(SUBDIRS) PRINT_ME root_folder
+.PHONY: $(SUBDIRS) PRINT_ME root_folder make_requisite
 
 
 SUBDIRS = Hello counter
 
 
-all : $(SUBDIRS) root_folder PRINT_ME
+all : make_requisite $(SUBDIRS) root_folder PRINT_ME
 	$(PRINT) " "
 	$(PRINT) "**** all $(shell pwd)/$@  "
 
@@ -24,3 +24,5 @@ root_folder: $(SUBDIRS)
 
 sinclude $(TOP_DIR)/make.func.mak
 
+make_requisite: Jiang-s-Recipe-of-CXX/extract_link.bash
+	Jiang-s-Recipe-of-CXX/extract_link.bash
