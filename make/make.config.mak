@@ -17,7 +17,7 @@ TOP_DIR        ?= .
   # "SRC_DIR" is place to put source code. 
 SRC_DIR        ?= ./src .
   # "INC_DIR" is place to put common shared header files. 
-INC_DIR        ?= . ./inc $(TOP_DIR)/inc $(TOP_DIR) $(TOP_DIR)/vcd-writer  
+INC_DIR        ?= . ./inc ./include $(TOP_DIR)/inc $(TOP_DIR)/include $(TOP_DIR)  
   # "BIN_DIR" is place to put output binary executables. 
 BIN_DIR        ?= $(TOP_DIR)/bin
   # "LIB_DIR" is place to put library. 
