@@ -7,6 +7,7 @@ SOURCE_DIR="."
 link_file_list="
 include>>>include
 make/makefile>>>makefile
+make/makefile.mak>>>makefile.mak
 make/make.config.mak>>>make.config.mak
 make/make.func.mak>>>make.func.mak
 "

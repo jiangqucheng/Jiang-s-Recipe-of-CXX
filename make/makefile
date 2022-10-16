@@ -1,12 +1,25 @@
 TOP_DIR=.
+
+## this is only need in project root
+ifeq ($(MAKECMDGOALS),clean)
+	root_folder_CLEAN_COMMAND_ADDI = Jiang-s-Recipe-of-CXX/extract_link.bash -c
+else
+	ifeq ($(wildcard $(TOP_DIR)/make.config.mak),)
+		__rubbish_bin_var__:=$(shell Jiang-s-Recipe-of-CXX/extract_link.bash)
+	else ifeq ($(wildcard $(TOP_DIR)/make.func.mak),)
+		__rubbish_bin_var__:=$(shell Jiang-s-Recipe-of-CXX/extract_link.bash)
+	endif
+endif
+
+
 sinclude $(TOP_DIR)/make.config.mak
-.PHONY: $(SUBDIRS) PRINT_ME root_folder make_requisite
+.PHONY: $(SUBDIRS) PRINT_ME root_folder 
 
 
 SUBDIRS = Hello counter
 
 
-all : make_requisite $(SUBDIRS) root_folder PRINT_ME
+all : $(SUBDIRS) root_folder PRINT_ME
 	$(PRINT) " "
 	$(PRINT) "**** all $(shell pwd)/$@  "
 
@@ -24,5 +37,3 @@ root_folder: $(SUBDIRS)
 
 sinclude $(TOP_DIR)/make.func.mak
 
-make_requisite: Jiang-s-Recipe-of-CXX/extract_link.bash
-	Jiang-s-Recipe-of-CXX/extract_link.bash
