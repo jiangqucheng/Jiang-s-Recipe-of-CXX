@@ -44,7 +44,7 @@ function func_mapRelativePath2AbsPath() {
         echo "TARGET_DIR [$TARGET_DIR] is AbsPath."; 
     } || { 
         echo "TARGET_DIR [$TARGET_DIR] change to Abs."; 
-        TARGET_DIR="$PRGDIR/$TARGET_DIR"; 
+        TARGET_DIR=$( readlink -m "$PRGDIR/$TARGET_DIR" ); 
         echo "TARGET_DIR [$TARGET_DIR]."; 
     }
     ## change $SOURCE_DIR into absolute path , based on $PRGDIR
@@ -52,7 +52,7 @@ function func_mapRelativePath2AbsPath() {
         echo "SOURCE_DIR [$SOURCE_DIR] is AbsPath."; 
     } || { 
         echo "SOURCE_DIR [$SOURCE_DIR] change to Abs."; 
-        SOURCE_DIR="$PRGDIR/$SOURCE_DIR"; 
+        SOURCE_DIR=$( readlink -m "$PRGDIR/$SOURCE_DIR" ); 
         echo "SOURCE_DIR [$SOURCE_DIR]."; 
     }
 }
