@@ -91,7 +91,8 @@ clean:
 	$(PRINT)
 
 
-PRINT_ME:
+PRINT_ME: $(EXES) $(LIBS) $(SUBDIRS)
+	# $(PRINT) "**** PRINT_ME $@  [ $@: $(filter-out $(MAKE_CONFIGS),$^) ] "
 	$(PRINT) " "
 	$(PRINT) " "
 	$(PRINT) "      ██╗██╗ █████╗ ███╗   ██╗ ██████╗      ██████╗  ██████╗"
