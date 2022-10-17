@@ -107,7 +107,7 @@ function func_unlinkProcess() {
         local fm_path="$SOURCE_DIR/${func_decodePathPair_result_arr[0]}"
         local to_path="$TARGET_DIR/${func_decodePathPair_result_arr[1]}"
         # echo "解析路径对： $fm_path 到 $to_path"
-        [ -e "$to_path" ] && { 
+        [ -e $to_path ] && { 
             [ -h $to_path ] && {
                 echo "  delete:  $to_path "; 
                 rm $to_path;
