@@ -44,7 +44,7 @@ function func_mapRelativePath2AbsPath() {
         echo "TARGET_DIR [$TARGET_DIR] is AbsPath."; 
     } || { 
         echo "TARGET_DIR [$TARGET_DIR] change to Abs."; 
-        TARGET_DIR="$PRGDIR/$TARGET_DIR"; 
+        TARGET_DIR=$( readlink -m "$PRGDIR/$TARGET_DIR" ); 
         echo "TARGET_DIR [$TARGET_DIR]."; 
     }
     ## change $SOURCE_DIR into absolute path , based on $PRGDIR
@@ -52,7 +52,7 @@ function func_mapRelativePath2AbsPath() {
         echo "SOURCE_DIR [$SOURCE_DIR] is AbsPath."; 
     } || { 
         echo "SOURCE_DIR [$SOURCE_DIR] change to Abs."; 
-        SOURCE_DIR="$PRGDIR/$SOURCE_DIR"; 
+        SOURCE_DIR=$( readlink -m "$PRGDIR/$SOURCE_DIR" ); 
         echo "SOURCE_DIR [$SOURCE_DIR]."; 
     }
 }
@@ -91,7 +91,7 @@ function func_linkProcess() {
         [ -e "$to_path" ] && { 
             echo "  already exist:  $to_path "; 
         } || { 
-            ln -s $fm_path  $(dirname $to_path) ; 
+            ln -s $fm_path  $(dirname $to_path) -f ; 
             echo "  create link :  $fm_path  <--  $to_path " ; 
         } 
     done
@@ -107,7 +107,7 @@ function func_unlinkProcess() {
         local fm_path="$SOURCE_DIR/${func_decodePathPair_result_arr[0]}"
         local to_path="$TARGET_DIR/${func_decodePathPair_result_arr[1]}"
         # echo "解析路径对： $fm_path 到 $to_path"
-        [ -e "$to_path" ] && { 
+        [ -e $to_path ] && { 
             [ -h $to_path ] && {
                 echo "  delete:  $to_path "; 
                 rm $to_path;
@@ -157,4 +157,4 @@ done
 ## default operation
 [ $isParamOverwrited -eq 0 ] && func_linkProcess
 
-
+exit 0;
