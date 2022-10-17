@@ -91,7 +91,7 @@ function func_linkProcess() {
         [ -e "$to_path" ] && { 
             echo "  already exist:  $to_path "; 
         } || { 
-            ln -s $fm_path  $(dirname $to_path) ; 
+            ln -s $fm_path  $(dirname $to_path) -f ; 
             echo "  create link :  $fm_path  <--  $to_path " ; 
         } 
     done
