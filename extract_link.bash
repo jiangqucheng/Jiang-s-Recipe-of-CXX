@@ -157,4 +157,4 @@ done
 ## default operation
 [ $isParamOverwrited -eq 0 ] && func_linkProcess
 
-
+exit 0;
