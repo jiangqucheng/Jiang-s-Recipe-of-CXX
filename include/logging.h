@@ -20,6 +20,9 @@
 #include <sstream>
 #include <stdio.h>
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+
 /**
  * @brief simple cutting function for __PERFECT_FUNCTION__ defination, in order to cut out the class and function(method) part out from the whole info.
  * 
@@ -32,6 +35,8 @@ static std::string __cut_parent_heses_n_tail__(std::string&& pfStr)
     pos = pfStr.rfind(' '); if(pos!=std::string::npos) pfStr.erase(pfStr.begin(), pfStr.begin()+pos+1);
     return std::move(pfStr);
 }
+
+#pragma GCC diagnostic pop
 
 /**
  * @brief __PERFECT_FUNCTION__ generate the perfect function name string, and add class name in front (if applicable).
